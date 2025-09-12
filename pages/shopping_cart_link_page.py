@@ -4,10 +4,13 @@ import pytest
 from pages.base_page import BasePage
 
 
+@allure.epic("Accounts")
+@allure.feature("login")
+@allure.story("Pages")
 class OpenBusk(BasePage):
 
     _CLIK_BUSK = "//a[@class='shopping_cart_link']"
-
+    @allure.step("busk open")
     def busk_page_open(self):
         self.driver.find_element(*self._CLIK_BUSK).click()
 

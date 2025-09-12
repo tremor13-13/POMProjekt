@@ -4,7 +4,9 @@ import pytest
 from pages.base_page import BasePage
 from allure_commons.types import Severity
 
-
+@allure.epic("Accounts")
+@allure.feature("login")
+@allure.story("Pages")
 class CompleteCheckout(BasePage):
 
 
@@ -13,7 +15,7 @@ class CompleteCheckout(BasePage):
     _POST_CODE = "//input[@id='postal-code']"
     _ZIP_COD = "//input[@id='continue']"
     _CLICK_FINISH = "//button[@id='finish']"
-
+    @allure.step("load checkout")
     def check_out(self):
         self.driver.find_element(*self._FIRST_NAME).send_keys("Alex")
         self.driver.find_element(*self._LAST_NAME).send_keys("Frunzik")

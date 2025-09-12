@@ -3,13 +3,15 @@ import allure
 import pytest
 from pages.base_page import BasePage
 
-
+@allure.epic("Accounts")
+@allure.feature("login")
+@allure.story("Pages")
 class CheckOut(BasePage):
 
 
     _CHECK_OUT_BUTTON = "//button[@id='checkout']"
 
-
+    @allure.step("open checkout")
     def open_checkout_page(self):
         self.driver.find_element(*self._CHECK_OUT_BUTTON).click()
         time.sleep(2)
