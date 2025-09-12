@@ -10,15 +10,15 @@ class LoginPage(BasePage):
     _USER_NAME_FILED = "//input[@id='user-name']"
     _USER_PASSWORD = "//input[@id='password']"
     _BUTTON_LOGIN = "//input[@id='login-button']"
-    @allure.step("enter login")
+    @allure.step("enter  login")
     def enter_user_name(self, user_name):
         self.driver.find_element(*self._USER_NAME_FILED).send_keys(user_name)
 
-    @allure.step("enter password")
+    @allure.step("enter  password")
     def enter_user_password(self, password):
         self.driver.find_element(*self._USER_PASSWORD).send_keys(password)
 
-    @allure.step("enter button")
+    @allure.step("click button login")
     def enter_button_login(self):
         self.driver.find_element(*self._BUTTON_LOGIN).click()
 
