@@ -11,9 +11,11 @@ class AddToCart(BasePage):
 
     _ADD_INVENTORY1 = "//button[@id='add-to-cart-sauce-labs-bike-light']"
     _ADD_INVENTORY2 = "//button[@id='add-to-cart-sauce-labs-backpack']"
+    # _ADDED_PRODUCTS = "//span[text()='2']"
     @allure.step("add  inventory ")
     def add_to_cart_inventory(self):
         self.driver.find_element(*self._ADD_INVENTORY1).click()
         self.driver.find_element(*self._ADD_INVENTORY2).click()
         time.sleep(3)
+        # add_products = self.driver.find_element(*self._ADDED_PRODUCTS)
         assert self.driver.current_url == "https://www.saucedemo.com/inventory.html", "ошибка входа"

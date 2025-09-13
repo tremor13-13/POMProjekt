@@ -7,20 +7,30 @@ from selenium.webdriver.chrome.options import Options
 def driver(request):
     chrome_options = Options()
 
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    # ВСЕ возможные настройки для блокировки
+    chrome_options.add_experimental_option("excludeSwitches",
+                                           ["enable-automation", "enable-logging", "ignore-certificate-errors"])
 
     chrome_options.add_experimental_option("prefs", {
+        "profile.default_content_setting_values.notifications": 2,
+        "profile.password_manager_enabled": False,
         "credentials_enable_service": False,
-        "profile.password_manager_enabled": False
+        "autofill.profile_enabled": False,
+        "autofill.credit_card_enabled": False,
+        "password_manager_enabled": False,
+        "enable-autofill": False,
+        "signin": False,
+        "translate": False
     })
 
-
-    # ## Добавь для Docker:
-    # chrome_options.add_argument("--headless")  # ← Без графического интерфейса
-    # chrome_options.add_argument("--no-sandbox")  # ← Обязательно для Docker
-    # chrome_options.add_argument("--disable-dev-shm-usage")  # ← Для ограниченной памяти
-    # chrome_options.add_argument("--disable-gpu")  # ← Отключаем GPU
-    # chrome_options.add_argument("--window-size=1920,1080")  # ← Фиксируем размер окна
+    chrome_options.add_argument("--disable-infobars")
+    chrome_options.add_argument("--disable-notifications")
+    chrome_options.add_argument("--disable-save-password-bubble")
+    chrome_options.add_argument("--disable-autofill-keyboard-accessory-view")
+    chrome_options.add_argument("--disable-features=PasswordSave,AutofillServerCommunication,TranslateUI")
+    chrome_options.add_argument("--disable-password-manager-reauthentication")
+    chrome_options.add_argument("--disable-password-manager")
+    chrome_options.add_argument("--disable-signin-promo")
 
     driver = webdriver.Chrome(options=chrome_options)
     request.cls.driver = driver

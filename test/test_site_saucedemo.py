@@ -22,6 +22,7 @@ class TestSite:
         self.login_page.enter_user_name("standard_user")
         self.login_page.enter_user_password("secret_sauce")
         self.login_page.enter_button_login()
+        
         time.sleep(5)
     # def test_add_to_cart(self):
         #нужно ли добавлять метод открытия, проверить после тестирования теста
@@ -32,4 +33,8 @@ class TestSite:
 
     # def test_check_out_clik(self):
         self.chek_out_page.open_checkout_page()
-        self.complete_check.check_out()
+        self.complete_check.check_enter_first_name()
+        self.complete_check.check_enter_last_name()
+        self.complete_check.check_enter_post_code()
+        self.complete_check.check_enter_finish_button()
+

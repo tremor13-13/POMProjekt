@@ -15,11 +15,34 @@ class CompleteCheckout(BasePage):
     _POST_CODE = "//input[@id='postal-code']"
     _ZIP_COD = "//input[@id='continue']"
     _CLICK_FINISH = "//button[@id='finish']"
-    @allure.step("load  checkout")
-    def check_out(self):
+    @allure.step("load checkout first name")
+    def check_enter_first_name(self):
         self.driver.find_element(*self._FIRST_NAME).send_keys("Alex")
+
+    @allure.step("load checkout last name")
+    def check_enter_last_name(self):
         self.driver.find_element(*self._LAST_NAME).send_keys("Frunzik")
+
+    @allure.step("load checkout post code")
+    def check_enter_post_code(self):
         self.driver.find_element(*self._POST_CODE).send_keys("234234")
         self.driver.find_element(*self._ZIP_COD).click()
+
+        allure.attach(
+            self.driver.get_screenshot_as_png(),
+            name="cart_page_screenshot",
+            attachment_type=allure.attachment_type.PNG
+        )
+        time.sleep(3)
+
+    @allure.step("enter checkout finish button")
+    def check_enter_finish_button(self):
         self.driver.find_element(*self._CLICK_FINISH).click()
         time.sleep(2)
+
+        allure.attach(
+            self.driver.get_screenshot_as_png(),
+            name="cart_page_screenshot",
+            attachment_type=allure.attachment_type.PNG
+        )
+        time.sleep(3)
