@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture(autouse=True)
 def driver(request):
-    chrome_options = Options()
+    chrome_options = webdriver.ChromeOptions()
 
     # ВСЕ возможные настройки для блокировки
     chrome_options.add_experimental_option("excludeSwitches",
@@ -23,7 +23,7 @@ def driver(request):
         "translate": False
     })
 
-    chrome_options.add_argument("--disable-infobars")
+    chrome_options.add_argument("--incognito")
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-save-password-bubble")
     chrome_options.add_argument("--disable-autofill-keyboard-accessory-view")
