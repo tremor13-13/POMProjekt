@@ -15,13 +15,14 @@ class LoginPage(BasePage):
     _BUTTON_LOGIN = "//input[@id='login-button']"
     @allure.step("enter  login")
     def enter_user_name(self, user_name):
-        name_filed = self.wait.until(EC.element_to_be_clickable(self._USER_NAME_FILED))
+        name_filed: WebElement = self.wait.until(EC.element_to_be_clickable(self._USER_NAME_FILED))
         name_filed.send_keys(user_name)
 
 
     @allure.step("enter  password")
     def enter_user_password(self, password):
-        password_filed = self.wait.until(EC.element_to_be_clickable(self._USER_PASSWORD))
+        password_field: WebElement = self.wait.until(EC.element_to_be_clickable(self._USER_PASSWORD))
+        password_field.send_keys(password)
         # self.driver.find_element(*self._USER_PASSWORD).send_keys(password)
 
     @allure.step("click button login")
