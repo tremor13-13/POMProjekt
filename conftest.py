@@ -1,11 +1,15 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.fixture(autouse=True)
 def driver(request):
     chrome_options = webdriver.ChromeOptions()
+
+
 
     # ВСЕ возможные настройки для блокировки
     chrome_options.add_experimental_option("excludeSwitches",
