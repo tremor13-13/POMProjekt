@@ -36,6 +36,7 @@ def driver(request):
     chrome_options.add_argument("--disable-password-manager")
     chrome_options.add_argument("--disable-signin-promo")
 
+
     driver = webdriver.Chrome(options=chrome_options)
     request.cls.driver = driver
     yield driver

@@ -1,4 +1,5 @@
 import time
+import os
 import pytest
 from pages.login_page import LoginPage
 from pages.add_to_cart_page import AddToCart
@@ -22,7 +23,7 @@ class TestSite:
         self.login_page.enter_user_name("standard_user")
         self.login_page.enter_user_password("secret_sauce")
         self.login_page.enter_button_login()
-        
+
         time.sleep(5)
     # def test_add_to_cart(self):
         #нужно ли добавлять метод открытия, проверить после тестирования теста
@@ -30,6 +31,8 @@ class TestSite:
 
     # def test_busk_clik(self):
         self.busk_page.busk_page_open()
+
+
 
     # def test_check_out_clik(self):
         self.chek_out_page.open_checkout_page()

@@ -1,6 +1,8 @@
 import time
 import allure
+import os
 import pytest
+from selenium.webdriver.common.alert import Alert
 from pages.base_page import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,10 +25,15 @@ class LoginPage(BasePage):
     def enter_user_password(self, password):
         password_field: WebElement = self.wait.until(EC.element_to_be_clickable(self._USER_PASSWORD))
         password_field.send_keys(password)
-        # self.driver.find_element(*self._USER_PASSWORD).send_keys(password)
+
+
 
     @allure.step("click button login")
     def enter_button_login(self):
-        self.driver.find_element(*self._BUTTON_LOGIN).click()
+        button_login: WebElement = self.wait.until(EC.element_to_be_clickable(self._BUTTON_LOGIN))
+        button_login.click()
 
-time.sleep(2)
+
+
+
+
