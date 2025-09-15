@@ -3,6 +3,9 @@ import allure
 import pytest
 from pages.base_page import BasePage
 from allure_commons.types import Severity
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import Keys
 
 @allure.epic(" Accounts")
 @allure.feature(" login")
@@ -17,7 +20,11 @@ class CompleteCheckout(BasePage):
     _CLICK_FINISH = "//button[@id='finish']"
     @allure.step("load checkout first name")
     def check_enter_first_name(self):
-        self.driver.find_element(*self._FIRST_NAME).send_keys("Alex")
+        check_first_name: WebElement = self.wait.until(EC.element_to_be_clickable(self._FIRST_NAME))
+        check_first_name.send_keys(Keys.CONTROL + "A")
+        check_first_name.send_keys(Keys.BACKSPACE)
+        check_first_name.send_keys("Alex")
+
 
     @allure.step("load checkout last name")
     def check_enter_last_name(self):
@@ -45,4 +52,5 @@ class CompleteCheckout(BasePage):
             name="cart_page_screenshot",
             attachment_type=allure.attachment_type.PNG
         )
+        assert self.driver.current_url == "https://www.saucedemo.com/checkout-complete.html"
         time.sleep(3)
