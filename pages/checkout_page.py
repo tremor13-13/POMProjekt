@@ -28,12 +28,18 @@ class CompleteCheckout(BasePage):
 
     @allure.step("load checkout last name")
     def check_enter_last_name(self):
-        self.driver.find_element(*self._LAST_NAME).send_keys("Frunzik")
+        check_entet_last_name:WebElement = self.wait.until(EC.element_to_be_clickable(self._LAST_NAME))
+        check_entet_last_name.send_keys(Keys.CONTROL + "A")
+        check_entet_last_name.send_keys(Keys.BACKSPACE)
+        check_entet_last_name.send_keys("Frunzik")
 
     @allure.step("load checkout post code")
     def check_enter_post_code(self):
-        self.driver.find_element(*self._POST_CODE).send_keys("234234")
-        self.driver.find_element(*self._ZIP_COD).click()
+        chek_enter_zip_code: WebElement = self.wait.until(EC.element_to_be_clickable(self._ZIP_COD))
+        chek_enter_zip_code.send_keys(Keys.CONTROL + "A")
+        chek_enter_zip_code.send_keys(Keys.BACKSPACE)
+        chek_enter_zip_code.send_keys("234234")
+
 
         allure.attach(
             self.driver.get_screenshot_as_png(),
@@ -44,7 +50,7 @@ class CompleteCheckout(BasePage):
 
     @allure.step("enter checkout finish button")
     def check_enter_finish_button(self):
-        self.driver.find_element(*self._CLICK_FINISH).click()
+        finish_click: WebElement = self.wait.until(EC.element_to_be_clickable(self._FIRST_NAME)).click()
         time.sleep(2)
 
         allure.attach(

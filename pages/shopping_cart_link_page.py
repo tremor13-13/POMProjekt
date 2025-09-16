@@ -2,6 +2,8 @@ import time
 import allure
 import pytest
 from pages.base_page import BasePage
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
 
 
 @allure.epic("Accounts")
@@ -12,7 +14,8 @@ class OpenBusk(BasePage):
     _CLIK_BUSK = "//a[@class='shopping_cart_link']"
     @allure.step("busk open")
     def busk_page_open(self):
-        self.driver.find_element(*self._CLIK_BUSK).click()
+        click_button_busk: WebElement = self.wait.until(EC.element_to_be_clickable(self._CLIK_BUSK))
+        click_button_busk.click()
 
         allure.attach(
             self.driver.get_screenshot_as_png(),
