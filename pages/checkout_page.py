@@ -16,7 +16,7 @@ class CompleteCheckout(BasePage):
     _FIRST_NAME = "//input[@id='first-name']"
     _LAST_NAME = "//input[@id='last-name']"
     _POST_CODE = "//input[@id='postal-code']"
-    _ZIP_COD = "//input[@id='continue']"
+    _BUTTON_ZIP_CONTINE = "//input[@id='continue']"
     _CLICK_FINISH = "//button[@id='finish']"
     @allure.step("load checkout first name")
     def check_enter_first_name(self):
@@ -35,10 +35,15 @@ class CompleteCheckout(BasePage):
 
     @allure.step("load checkout post code")
     def check_enter_post_code(self):
-        chek_enter_zip_code: WebElement = self.wait.until(EC.element_to_be_clickable(self._ZIP_COD))
+        chek_enter_zip_code: WebElement = self.wait.until(EC.element_to_be_clickable(self._POST_CODE))
         chek_enter_zip_code.send_keys(Keys.CONTROL + "A")
         chek_enter_zip_code.send_keys(Keys.BACKSPACE)
         chek_enter_zip_code.send_keys("234234")
+
+    @allure.step("Enter contine")
+    def enter_contine(self):
+        check_enter_contine: WebElement = self.wait.until(EC.element_to_be_clickable(self._BUTTON_ZIP_CONTINE))
+        check_enter_contine.click()
 
 
         allure.attach(
@@ -50,7 +55,8 @@ class CompleteCheckout(BasePage):
 
     @allure.step("enter checkout finish button")
     def check_enter_finish_button(self):
-        finish_click: WebElement = self.wait.until(EC.element_to_be_clickable(self._FIRST_NAME)).click()
+        finish_click: WebElement = self.wait.until(EC.element_to_be_clickable(self._CLICK_FINISH))
+        finish_click.click()
         time.sleep(2)
 
         allure.attach(

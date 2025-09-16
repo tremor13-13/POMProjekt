@@ -18,6 +18,7 @@ class TestSite:
         self.chek_out_page = CheckOut(self.driver)
         self.complete_check = CompleteCheckout(self.driver)
 
+
     def test_login(self):
         self.login_page.open()
         self.login_page.enter_user_name("standard_user")
@@ -39,5 +40,6 @@ class TestSite:
         self.complete_check.check_enter_first_name()
         self.complete_check.check_enter_last_name()
         self.complete_check.check_enter_post_code()
+        self.complete_check.enter_contine()
         self.complete_check.check_enter_finish_button()
 
