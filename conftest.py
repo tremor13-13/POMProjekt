@@ -2,8 +2,15 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+# ДОБАВЬ ЭТУ СТРОЧКУ для ДОККЕРА - уникальная папка для каждого теста
+import tempfile
+# это тоже для докера что бы тесты запускались в отдельных папках
 
-@pytest.fixture(autouse=True)
+
+
+
+@pytest.fixture(autouse=True) # для запуска на компе нужно с автоюзом
+# @pytest.fixture() # убераю автоюз для докера
 def driver(request):
     chrome_options = webdriver.ChromeOptions()
 
@@ -33,7 +40,13 @@ def driver(request):
     chrome_options.add_argument("--disable-password-manager-reauthentication")
     chrome_options.add_argument("--disable-password-manager")
     chrome_options.add_argument("--disable-signin-promo")
+    temp_dir = tempfile.mkdtemp() # настройка для строчки ниже, запуска тестов в отдельных папках для докера
+    chrome_options.add_argument(f"--user-data-dir={temp_dir}") # для запуска тестов в отдельных папках для ДОККЕРА
 
+    # ДОБАВЬ ТОЛЬКО ЭТИ 3 СТРОЧКИ для Docker:
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--headless=new")
 
     driver = webdriver.Chrome(options=chrome_options)
     request.cls.driver = driver

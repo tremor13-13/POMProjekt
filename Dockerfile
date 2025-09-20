@@ -41,4 +41,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Команда по умолчанию, которая выполняется при запуске контейнера.
-CMD ["pytest", "-v", "--tb=short"]
+CMD ["pytest", "-v", "--tb=short", "--alluredir=allure-results"]
