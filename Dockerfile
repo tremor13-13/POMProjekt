@@ -1,6 +1,6 @@
 FROM python:3.11-slim-bullseye
 
-# Install Chrome from official repo
+# Install Chrome and ChromeDriver from official package
 RUN apt-get update && \
     apt-get install -y wget gnupg2 && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
@@ -9,10 +9,14 @@ RUN apt-get update && \
     apt-get install -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
-# Install ChromeDriver from apt (simplest way)
+# Install ChromeDriver from official Debian package (not from website)
 RUN apt-get update && \
-    apt-get install -y chromedriver && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y wget && \
+    wget -q -O /tmp/chromedriver.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" && \
+    dpkg -x /tmp/chromedriver.deb /tmp/chrome && \
+    mv /tmp/chrome/opt/google/chrome/chromedriver /usr/local/bin/ && \
+    chmod +x /usr/local/bin/chromedriver && \
+    rm -rf /tmp/chromedriver.deb /tmp/chrome
 
 WORKDIR /app
 COPY requirements.txt .
