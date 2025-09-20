@@ -1,6 +1,6 @@
 FROM python:3.11-slim-bullseye
 
-# Install Chrome
+# Install Chrome and ChromeDriver from official package
 RUN apt-get update && \
     apt-get install -y wget gnupg2 && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
@@ -9,13 +9,14 @@ RUN apt-get update && \
     apt-get install -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
-# Install ChromeDriver (FIXED VERSION)
-RUN CHROME_MAJOR_VERSION=$(google-chrome --version | grep -oP '\d+' | head -1) && \
-    wget -q -O /tmp/chromedriver.zip "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_MAJOR_VERSION}/linux64/chromedriver-linux64.zip" && \
-    unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
-    mv /usr/local/bin/chromedriver-linux64/chromedriver /usr/local/bin/ && \
+# Install ChromeDriver from official Debian package (not from website)
+RUN apt-get update && \
+    apt-get install -y wget && \
+    wget -q -O /tmp/chromedriver.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" && \
+    dpkg -x /tmp/chromedriver.deb /tmp/chrome && \
+    mv /tmp/chrome/opt/google/chrome/chromedriver /usr/local/bin/ && \
     chmod +x /usr/local/bin/chromedriver && \
-    rm -rf /tmp/chromedriver.zip
+    rm -rf /tmp/chromedriver.deb /tmp/chrome
 
 WORKDIR /app
 COPY requirements.txt .
