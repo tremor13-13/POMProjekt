@@ -1,35 +1,20 @@
-# POMProjekt
-Универсальный conftest.py:
-import pytest
-import tempfile
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+# Мой первый готовый проект по автотестированию
 
-@pytest.fixture(autouse=True)
-def driver(request):
-    chrome_options = Options()
-    
-    # УНИВЕРСАЛЬНЫЕ НАСТРОЙКИ (работают везде)
-    chrome_options.add_argument("--disable-notifications")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    
-    # Автоматическое определение среды
-    import os
-    if os.getenv('DOCKER_RUN') == 'true':  # Запущено в Docker
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--headless=new")
-        # Уникальная папка для избежания конфликтов
-        temp_dir = tempfile.mkdtemp()
-        chrome_options.add_argument(f"--user-data-dir={temp_dir}")
-    else:  # Локальный запуск
-        chrome_options.add_argument("--start-maximized")
-    
-    # Общие настройки
-    chrome_options.add_experimental_option("excludeSwitches", 
-                                          ["enable-automation", "enable-logging"])
-    
-    driver = webdriver.Chrome(options=chrome_options)
-    request.cls.driver = driver
-    yield driver
-    driver.quit()
+Это мой первый проект автотестирования с Docker и Allure!
 
+## 📦 Что внутри?
+- Selenium WebDriver
+- Page Object Pattern
+- Docker контейнеризация
+- Allure отчеты
+- GitHub Actions CI/CD
+
+#️ Как запустить?
+
+### Локально:
+```bash
+# Собрать Docker образ
+docker build -t my-autotests .
+
+# Запустить тесты
+docker run -p 8800:8800 my-autotests
