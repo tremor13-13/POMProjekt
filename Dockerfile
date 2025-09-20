@@ -1,27 +1,15 @@
-FROM python:3.11-slim-bullseye
-
-# Install Chrome and ChromeDriver from official package
-RUN apt-get update && \
-    apt-get install -y wget gnupg2 && \
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update && \
-    apt-get install -y google-chrome-stable && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install ChromeDriver from official Debian package (not from website)
-RUN apt-get update && \
-    apt-get install -y wget && \
-    wget -q -O /tmp/chromedriver.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" && \
-    dpkg -x /tmp/chromedriver.deb /tmp/chrome && \
-    mv /tmp/chrome/opt/google/chrome/chromedriver /usr/local/bin/ && \
-    chmod +x /usr/local/bin/chromedriver && \
-    rm -rf /tmp/chromedriver.deb /tmp/chrome
+FROM selenium/standalone-chrome:4.21.0
 
 WORKDIR /app
+
+# Копируем только нужные файлы
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
+
+COPY pages/ pages/
+COPY tests/ tests/
+COPY conftest.py .
+COPY pytest.ini .
 
 CMD ["pytest", "-v", "--alluredir=allure-results"]
 
