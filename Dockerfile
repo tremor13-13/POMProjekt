@@ -1,15 +1,15 @@
-FROM python:3.11-slim-bullseye  # ← Более легкая версия!
+FROM python:3.11-slim-bullseye
 
-# Устанавливаем Chrome проще и быстрее
+# Install Chrome
 RUN apt-get update && \
     apt-get install -y wget gnupg2 && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update && \
     apt-get install -y google-chrome-stable && \
-    rm -rf /var/lib/apt/lists/*  # ← Важно: очищаем кэш!
+    rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем ChromeDriver
+# Install ChromeDriver
 RUN CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+') && \
     wget -q -O /tmp/chromedriver.zip "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROME_VERSION}/linux64/chromedriver-linux64.zip" && \
     unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
