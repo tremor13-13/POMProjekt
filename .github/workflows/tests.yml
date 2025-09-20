@@ -1,22 +1,48 @@
-name: Run Autotests
+name: 🚀 Run Autotests
 
 on: [push, pull_request]
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 15  # Общий таймаут
 
     steps:
-    - name: Checkout code
+    - name: 📥 Checkout code
       uses: actions/checkout@v4
 
-    - name: Build and run tests
-      run: |
-        docker build -t my-autotests .
-        docker run -v ${PWD}/allure-results:/app/allure-results my-autotests
+    - name: 🐳 Build Docker image
+      run: docker build -t my-autotests .
+      timeout-minutes: 8  # Таймаут на сборку
 
-    - name: Upload Allure results
+    - name: 🧪 Run tests
+      run: docker run -v $(pwd)/allure-results:/app/allure-results my-autotests
+      timeout-minutes: 5  # Таймаут на тесты
+
+    - name: 💾 Upload Allure results
       uses: actions/upload-artifact@v4
       with:
         name: allure-results
         path: allure-results/
+#name: Run Autotests
+#
+#on: [push, pull_request]
+#
+#jobs:
+#  run-tests:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - name: Checkout code
+#      uses: actions/checkout@v4
+#
+#    - name: Build and run tests
+#      run: |
+#        docker build -t my-autotests .
+#        docker run -v ${PWD}/allure-results:/app/allure-results my-autotests
+#
+#    - name: Upload Allure results
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: allure-results
+#        path: allure-results/
