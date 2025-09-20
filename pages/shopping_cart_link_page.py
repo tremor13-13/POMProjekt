@@ -1,5 +1,6 @@
 import time
 import allure
+import allure_pytest
 import pytest
 from pages.base_page import BasePage
 from selenium.webdriver.remote.webelement import WebElement
@@ -9,7 +10,7 @@ from selenium.webdriver.remote.webelement import WebElement
 @allure.feature("login")
 @allure.story("Pages")
 class OpenBusk(BasePage):
-
+    _PAGE_URL = "https://www.saucedemo.com/cart.html"
     _CLIK_BUSK = "//a[@class='shopping_cart_link']"
     @allure.step("busk open")
     def busk_page_open(self):

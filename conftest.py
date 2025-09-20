@@ -1,8 +1,6 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.fixture(autouse=True)
@@ -27,7 +25,7 @@ def driver(request):
         "translate": False
     })
 
-    chrome_options.add_argument("--incognito")
+    # chrome_options.add_argument("--incognito")
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-save-password-bubble")
     chrome_options.add_argument("--disable-autofill-keyboard-accessory-view")

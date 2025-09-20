@@ -7,8 +7,10 @@ from allure_commons.types import Severity
 @allure.epic(" Accounts")
 @allure.feature(" login ")
 @allure.story(" Pages ")
+@allure.severity(Severity.NORMAL)
 class AddToCart(BasePage):
 
+    _PAGE_URL ="https://www.saucedemo.com/inventory.html"
     _ADD_INVENTORY1 = "//button[@id='add-to-cart-sauce-labs-bike-light']"
     _ADD_INVENTORY2 = "//button[@id='add-to-cart-sauce-labs-backpack']"
     _COUNT_PRODUCTS = "//span[text()='2']"
@@ -25,7 +27,7 @@ class AddToCart(BasePage):
         count_products = self.driver.find_element(*self._COUNT_PRODUCTS)
         # преобразовать в текст!
         text_count = count_products.text
-        # и потом перевести в числовое
+        # и потом перевести в числовое значение
         text_count_int = int(text_count)
         # и только потом пихать его в асерт!
         allure.attach(
