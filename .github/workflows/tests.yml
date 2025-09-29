@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 15  # Общий таймаут
+    timeout-minutes: 15
 
     steps:
     - name: 📥 Checkout code
@@ -13,17 +13,27 @@ jobs:
 
     - name: 🐳 Build Docker image
       run: docker build -t my-autotests .
-      timeout-minutes: 8  # Таймаут на сборку
+      timeout-minutes: 8
 
     - name: 🧪 Run tests
       run: docker run -v $(pwd)/allure-results:/app/allure-results my-autotests
-      timeout-minutes: 5  # Таймаут на тесты
+      timeout-minutes: 5
 
-    - name: 💾 Generate Allure Report
-      uses: simple-elf/allure-report-artifact@v4
+    - name: 📊 Allure Report
+      uses: simple-elf/allure-report-action@v1.7
+      if: always()
       with:
         allure_results: allure-results
-        gh_pages: gh-pages
+        allure_report: allure-report
+        keep_reports: 5
+
+    - name: 📁 Upload Allure Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: allure-report
+        path: allure-report/
+        retention-days: 30
 
 #name: 🚀 Run Autotests
 #
