@@ -7,14 +7,10 @@ import tempfile
 # это тоже для докера что бы тесты запускались в отдельных папках
 
 
-
-
 @pytest.fixture(autouse=True) # для запуска на компе нужно с автоюзом
 # @pytest.fixture() # убераю автоюз для докера
 def driver(request):
     chrome_options = webdriver.ChromeOptions()
-
-
 
     # ВСЕ возможные настройки для блокировки
     chrome_options.add_experimental_option("excludeSwitches",
@@ -32,7 +28,7 @@ def driver(request):
         "translate": False
     })
 
-    # chrome_options.add_argument("--incognito")
+    # chrome_options.add_argument("--incognito") # при сборке докера отключить!
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-save-password-bubble")
     chrome_options.add_argument("--disable-autofill-keyboard-accessory-view")
@@ -43,7 +39,7 @@ def driver(request):
     temp_dir = tempfile.mkdtemp() # настройка для строчки ниже, запуска тестов в отдельных папках для докера
     chrome_options.add_argument(f"--user-data-dir={temp_dir}") # для запуска тестов в отдельных папках для ДОККЕРА
 
-    # ДОБАВЬ ТОЛЬКО ЭТИ 3 СТРОЧКИ для Docker:
+    #  для Docker:
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--headless=new")

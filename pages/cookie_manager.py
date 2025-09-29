@@ -34,12 +34,4 @@ class CookieManager:
         for key, value in local_storage.items():
             self.driver.execute_script(f"window.localStorage.setItem('{key}', '{value}');")
 
-        # попробуем загрузить сторадж
-        # Загружаем localStorage
-        # with open("local_storage.json", "r") as file:
-        #     local_storage = json.load(file)
-        # for key, value in local_storage.items():
-        #     self.driver.execute_script(f"window.localStorage.setItem('{key}', '{value}');")
-        # #  после надо открыть саму страницу интентаря т.е. продуктов но только уже через self.driver.get(_PAGE_URL)
-        # self.driver.get("https://www.saucedemo.com/inventory.html")
 

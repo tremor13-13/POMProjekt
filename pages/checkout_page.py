@@ -37,6 +37,13 @@ class CompleteCheckout(BasePage):
         chek_enter_zip_code.send_keys(Keys.BACKSPACE)
         chek_enter_zip_code.send_keys("234234")
 
+        allure.attach(
+            self.driver.get_screenshot_as_png(),
+            name="cart_page_screenshot",
+            attachment_type=allure.attachment_type.PNG
+        )
+        time.sleep(3)
+
     @allure.step("Enter contine")
     def enter_contine(self):
         check_enter_contine: WebElement = self.wait.until(self.EC.element_to_be_clickable(self._BUTTON_ZIP_CONTINE))

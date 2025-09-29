@@ -1,7 +1,6 @@
 import allure
 import json
 
-from selenium.webdriver.chrome.webdriver import WebDriver
 
 from pages.base_page import BasePage
 from selenium.webdriver.remote.webelement import WebElement
