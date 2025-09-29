@@ -1,7 +1,6 @@
 import os
 import json
 from selenium.webdriver.chrome.webdriver import WebDriver
-from pages.base_page import BasePage
 
 
 class CookieManager:

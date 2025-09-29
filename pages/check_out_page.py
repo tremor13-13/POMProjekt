@@ -16,7 +16,15 @@ class CheckOut(BasePage):
     def open_checkout_page(self):
         click_check_out_button: WebElement = self.wait.until(self.EC.element_to_be_clickable(self._CHECK_OUT_BUTTON))
         click_check_out_button.click()
+
+        allure.attach(
+            self.driver.get_screenshot_as_png(),
+            name="cart_page_screenshot",
+            attachment_type=allure.attachment_type.PNG
+        )
         time.sleep(2)
+
+
         expected_checkout_url = "https://www.saucedemo.com/checkout-step-one.html"
 
         allure.attach(

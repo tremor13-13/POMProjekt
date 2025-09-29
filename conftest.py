@@ -2,7 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-# ДОБАВЬ ЭТУ СТРОЧКУ для ДОККЕРА - уникальная папка для каждого теста
+# для ДОКЕРА - уникальная папка для каждого теста
 import tempfile
 # это тоже для докера что бы тесты запускались в отдельных папках
 
@@ -28,7 +28,7 @@ def driver(request):
         "translate": False
     })
 
-    # chrome_options.add_argument("--incognito") # при сборке докера отключить!
+    chrome_options.add_argument("--incognito") # при сборке докера отключить!
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-save-password-bubble")
     chrome_options.add_argument("--disable-autofill-keyboard-accessory-view")

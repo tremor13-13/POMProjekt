@@ -1,3 +1,5 @@
+import time
+
 import allure
 import json
 
@@ -25,6 +27,13 @@ class LoginPage(BasePage):
     def enter_button_login(self):
         button_login: WebElement = self.wait.until(self.EC.element_to_be_clickable(self._BUTTON_LOGIN))
         button_login.click()
+
+        allure.attach(
+            self.driver.get_screenshot_as_png(),
+            name="cart_page_screenshot",
+            attachment_type=allure.attachment_type.PNG
+        )
+        time.sleep(2) # такие тайм-слипы нельзя оставлять в рабочем проекте это только для наглядности прохождения теста
 
 
 
