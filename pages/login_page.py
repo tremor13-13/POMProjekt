@@ -33,6 +33,7 @@ class LoginPage(BasePage):
             name="cart_page_screenshot",
             attachment_type=allure.attachment_type.PNG
         )
+
         time.sleep(2) # такие тайм-слипы нельзя оставлять в рабочем проекте это только для наглядности прохождения теста
 
 
