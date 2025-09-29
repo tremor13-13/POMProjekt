@@ -42,7 +42,7 @@ class CompleteCheckout(BasePage):
             name="cart_page_screenshot",
             attachment_type=allure.attachment_type.PNG
         )
-        time.sleep(3)
+        time.sleep(4)
 
     @allure.step("Enter contine")
     def enter_contine(self):
