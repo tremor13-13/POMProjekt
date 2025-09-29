@@ -19,16 +19,23 @@ jobs:
       run: docker run -v $(pwd)/allure-results:/app/allure-results my-autotests
       timeout-minutes: 5
 
-    - name: 📊 Publish Allure Report
-      uses: simple-elf/allure-report-action@v1.7
-      with:
-        allure_results: allure-results
-        keep_reports: 5
-
-    - name: 🔗 Show Report URL
+    - name: 📦 Install Allure
       run: |
-        echo "🎯 Allure report will be available in the GitHub Actions summary after completion!"
-        echo "📊 Look for the 'Allure Report' section in the job summary"
+        sudo apt-get update
+        sudo apt-get install -y default-jre
+        wget -q https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+        sudo tar -zxvf allure-2.27.0.tgz -C /opt/
+        sudo ln -sf /opt/allure-2.27.0/bin/allure /usr/bin/allure
+
+    - name: 📊 Generate Allure Report
+      run: allure generate allure-results -o allure-report --clean
+
+    - name: 📁 Upload Allure Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: allure-report/
+        retention-days: 30
 
 #name: 🚀 Run Autotests
 #
