@@ -19,21 +19,60 @@ jobs:
       run: docker run -v $(pwd)/allure-results:/app/allure-results my-autotests
       timeout-minutes: 5
 
-    - name: 📊 Allure Report
-      uses: simple-elf/allure-report-action@v1.7
-      if: always()
-      with:
-        allure_results: allure-results
-        allure_report: allure-report
-        keep_reports: 5
+    - name: 📦 Install Allure
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y default-jre
+        wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+        sudo tar -zxvf allure-2.27.0.tgz -C /opt/
+        sudo ln -s /opt/allure-2.27.0/bin/allure /usr/bin/allure
 
-    - name: 📁 Upload Allure Report
-      uses: actions/upload-artifact@v4
-      if: always()
+    - name: 📊 Generate Allure Report
+      run: allure generate allure-results -o allure-report --clean
+
+    - name: 🚀 Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        name: allure-report
-        path: allure-report/
-        retention-days: 30
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
+        keep_files: false
+
+#name: 🚀 Run Autotests
+#
+#on: [push, pull_request]
+#
+#jobs:
+#  run-tests:
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 15
+#
+#    steps:
+#    - name: 📥 Checkout code
+#      uses: actions/checkout@v4
+#
+#    - name: 🐳 Build Docker image
+#      run: docker build -t my-autotests .
+#      timeout-minutes: 8
+#
+#    - name: 🧪 Run tests
+#      run: docker run -v $(pwd)/allure-results:/app/allure-results my-autotests
+#      timeout-minutes: 5
+#
+#    - name: 📊 Allure Report
+#      uses: simple-elf/allure-report-action@v1.7
+#      if: always()
+#      with:
+#        allure_results: allure-results
+#        allure_report: allure-report
+#        keep_reports: 5
+#
+#    - name: 📁 Upload Allure Report
+#      uses: actions/upload-artifact@v4
+#      if: always()
+#      with:
+#        name: allure-report
+#        path: allure-report/
+#        retention-days: 30
 
 #name: 🚀 Run Autotests
 #
