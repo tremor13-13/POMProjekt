@@ -2,11 +2,6 @@ name: 🚀 Run Autotests
 
 on: [push, pull_request]
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -29,6 +24,11 @@ jobs:
       with:
         allure_results: allure-results
         keep_reports: 5
+
+    - name: 🔗 Show Report URL
+      run: |
+        echo "🎯 Allure report will be available in the GitHub Actions summary after completion!"
+        echo "📊 Look for the 'Allure Report' section in the job summary"
 
 #name: 🚀 Run Autotests
 #
