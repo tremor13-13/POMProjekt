@@ -1,7 +1,7 @@
 [
     {
         "domain": ".www.saucedemo.com",
-        "expiry": 1759173386,
+        "expiry": 1759233221,
         "httpOnly": false,
         "name": "session-username",
         "path": "/",

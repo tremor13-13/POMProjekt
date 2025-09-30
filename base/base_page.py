@@ -1,10 +1,8 @@
-import time
 from metaclasses.meta_locator import MetaLocator
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-import json
-import os
+
 
 
 class BasePage(metaclass=MetaLocator):

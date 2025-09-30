@@ -1,7 +1,6 @@
 import time
 import allure
-import pytest
-from pages.base_page import BasePage
+from base.base_page import BasePage
 from selenium.webdriver.remote.webelement import WebElement
 
 @allure.epic(" Accounts")

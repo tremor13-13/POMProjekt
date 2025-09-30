@@ -1,6 +1,6 @@
 import time
 import allure
-from pages.base_page import BasePage
+from base.base_page import BasePage
 from selenium.webdriver.remote.webelement import WebElement
 from allure_commons.types import Severity
 
@@ -30,11 +30,13 @@ class AddToCart(BasePage):
         # и потом перевести в числовое значение
         text_count_int = int(text_count)
         # и только потом пихать его в асерт!
+
         allure.attach(
             self.driver.get_screenshot_as_png(),
             name="cart_page_screenshot",
             attachment_type=allure.attachment_type.PNG
         )
         time.sleep(3)
+
         assert text_count_int == 2, "не верное количиство товаров в корзине"
         assert self.driver.current_url == "https://www.saucedemo.com/inventory.html", "ошибка входа"

@@ -1,6 +1,6 @@
 import time
 import allure
-from pages.base_page import BasePage
+from base.base_page import BasePage
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver import Keys
 
